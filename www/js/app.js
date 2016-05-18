@@ -101,36 +101,23 @@ window.Messages = {
 window.wlInitOptions = {
   // Options to initialize with the WL.Client object.
   // For initialization options please refer to IBM MobileFirst Platform Foundation Knowledge Center.
-     onSuccess:connected,
-     onFailure:notconnected
 };
- function connected() {
-     alert("connected");
- }
- function notconnected(response) {
-     alert("not connected");
- }
 window.MFPClientDefer = angular.injector(['ng']).get('$q').defer();;
 window.wlCommonInit = window.MFPClientDefer.resolve;
 window.MFPClientDefer.promise.then(function wlCommonInit(){
-  //alert("wlCommonInit");
-    // Mobile first server connectivity for Mobile first 8.0.0 beta version
-    alert("Access Token=="+WLAuthorizationManager.obtainAccessToken);
-    WLAuthorizationManager.obtainAccessToken().then(
-        function () {
-            alert ("successfully obtained a token from the server");
-        },
-        function(response) {
-            alert("Unable to obtain a token from the server");
-        }
-    );
+ // Mobile first server connectivity for Mobile first 7.1 beta version
+   WL.Client.connect({
+       onSuccess :function(){ alert("success")},
+       onFailure :function(){ alert("Fail");},
+   });
+
   mfpMagicPreviewSetup();
   // Mobile first server connectivity for Mobile first 7.1 version
  });
 
 function notificationReceived(message) {
     obj = JSON.parse(message.payload);
-    alert("Push received",message.payload);
+   // alert("Push received",message.payload);
     /*
     alert("Alert: " + message.alert +
             "\nID: " + obj.nid +
